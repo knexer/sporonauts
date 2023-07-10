@@ -13,6 +13,27 @@ public class PopLaunch : MonoBehaviour
     [SerializeField] private float inflateScale = 2f;
     [SerializeField] private float popForce = 10f;
     [SerializeField] private float refuelTimePerBalloon = 1f;
+    [SerializeField] private int startingFuel = 1;
+
+    private int fuel;
+    private int Fuel
+    {
+        get => fuel;
+        set
+        {
+            fuel = value;
+            if (fuel < 0) fuel = 0;
+            if (fuel > balloons.Length) fuel = balloons.Length;
+
+            for (int i = 0; i < balloons.Length; i++)
+            {
+                balloons[i].SetActive(i < fuel);
+            }
+        }
+    }
+
+    //Reference to the refuel coroutine
+    private Coroutine refuelCoroutine;
 
     public int NumBalloons() {
         // Return number of active balloons
@@ -20,56 +41,59 @@ public class PopLaunch : MonoBehaviour
     }
 
     private void Start() {
-        // Subscribe to OnTriggerEnter2DEvent
         GetComponentInParent<CollisionDetector>().OnTriggerEnter2DEvent += OnTriggerEnter2D;
+        Fuel = startingFuel;
     }
 
     private void OnDestroy() {
-        // Unsubscribe from OnTriggerEnter2DEvent
-        GetComponentInParent<CollisionDetector>().OnTriggerEnter2DEvent -= OnTriggerEnter2D;
+        var detector = GetComponentInParent<CollisionDetector>();
+        if (detector) detector.OnTriggerEnter2DEvent -= OnTriggerEnter2D;
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && NumBalloons() > 0)
         {
-            StartCoroutine(Inflate(balloons[NumBalloons() - 1]));
+            StartCoroutine(Inflate());
         }
     }
 
-    private IEnumerator Inflate(GameObject balloon)
+    private IEnumerator Inflate()
     {
         float timer = 0f;
-        while (true)
+        while (!Input.GetMouseButtonUp(0))
         {
             timer += Time.deltaTime;
             timer = Mathf.Min(timer, inflateTime);
-            balloon.transform.localScale = Vector3.one * Mathf.Lerp(1f, inflateScale, timer / inflateTime);
-
-            if (Input.GetMouseButtonUp(0))
+            for (int i = 0; i < balloons.Length; i++)
             {
-                Pop(balloon, timer / inflateTime);
-                yield break;
+                balloons[i].transform.localScale = i == Fuel - 1 ?
+                        Vector3.one * Mathf.Lerp(1f, inflateScale, timer / inflateTime) :
+                        Vector3.one;
             }
             yield return null;
         }
+
+        Pop(timer / inflateTime);
     }
 
-    private void Pop(GameObject balloon, float inflatePercent)
+    private void Pop(float inflatePercent)
     {
         Vector2 direction = -transform.up;
         ship.AddForce(direction * popForce * inflatePercent, ForceMode2D.Impulse);
-        balloon.SetActive(false);
+
+        GameObject balloon = balloons[Fuel - 1];
+        balloon.transform.localScale = Vector3.one;
+        Fuel--;
     }
     
     // Refuel when near a ResourceDeposit
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Entered trigger");
         ResourceDeposit resourceDeposit = other.gameObject.GetComponent<ResourceDeposit>();
         if (!resourceDeposit) return;
 
-        StartCoroutine(Refuel(other));
+        if (refuelCoroutine == null) refuelCoroutine = StartCoroutine(Refuel(other));
     }
 
     private IEnumerator Refuel(Collider2D resourceDeposit)
@@ -77,10 +101,12 @@ public class PopLaunch : MonoBehaviour
         Rigidbody2D rb = GetComponentInParent<Rigidbody2D>();
         Collider2D[] colliders = rb.GetComponentsInChildren<Collider2D>();
 
-        Debug.Log("Refueling");
-        float timer = 0f;
-        while (NumBalloons() < balloons.Length)
+        while (Enumerable.Any(colliders, collider => collider.IsTouching(resourceDeposit)))
         {
+            while (Fuel >= balloons.Length) yield return null;
+
+            Debug.Log("Refueling");
+            float timer = 0f;
             while (timer < refuelTimePerBalloon)
             {
                 timer += Time.deltaTime;
@@ -89,12 +115,14 @@ public class PopLaunch : MonoBehaviour
                 // If we stop colliding with the ResourceDeposit, stop refueling
                 if (!Enumerable.Any(colliders, collider => collider.IsTouching(resourceDeposit))) {
                     Debug.Log("Stopped refueling - left deposit.");
+                    refuelCoroutine = null;
                     yield break;
                 }
             }
             timer -= refuelTimePerBalloon;
-            balloons[NumBalloons()].SetActive(true);
+            Fuel++;
         }
         Debug.Log("Finished refueling");
+        refuelCoroutine = null;
     }
 }
