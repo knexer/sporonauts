@@ -1,0 +1,102 @@
+{
+    "name": "ShipInput",
+    "maps": [
+        {
+            "name": "Flying",
+            "id": "7e106430-8cdf-4c2e-a028-fd2bba493a2a",
+            "actions": [
+                {
+                    "name": "ActivateEngine",
+                    "type": "Button",
+                    "id": "884c90f7-467a-4db3-af53-dfaf2d898895",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchToInventory",
+                    "type": "Button",
+                    "id": "2497ef4b-b903-4d16-b6df-a8088338c38e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1ef0b928-b9e3-4636-b088-d7d4adc91a1f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateEngine",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c0fce606-b994-4574-b5d2-ec3f745b237c",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchToInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Inventory",
+            "id": "2bc81ea1-86eb-4030-bfa2-a1ab72110791",
+            "actions": [
+                {
+                    "name": "Collect",
+                    "type": "Button",
+                    "id": "ae1ed454-4c41-4ed3-9792-38c13e3b25eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchToFlying",
+                    "type": "Button",
+                    "id": "83daa2fa-25e1-40d5-81cb-f8363c6224f3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "05f96ad2-6868-406f-8121-bea29d245ee1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Collect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6051fdcc-d215-4a65-8793-555e6b72df1a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchToFlying",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
