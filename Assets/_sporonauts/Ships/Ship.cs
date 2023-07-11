@@ -11,7 +11,9 @@ public enum ShipState {
 
 public class Ship : MonoBehaviour
 {
-    [SerializeField] private ShipState state;
+    [SerializeField] private CameraFocuser cameraFocuser;
+
+    private ShipState state;
     private ShipInput input;
 
     private void Awake() {
@@ -51,11 +53,13 @@ public class Ship : MonoBehaviour
         state = ShipState.Control;
         input.Flying.Enable();
         input.Inventory.Disable();
+        cameraFocuser.Unfocus();
     }
 
     private void OnSwitchToInventory(InputAction.CallbackContext context) {
         state = ShipState.Inventory;
         input.Flying.Disable();
         input.Inventory.Enable();
+        cameraFocuser.Focus(gameObject);
     }
 }
