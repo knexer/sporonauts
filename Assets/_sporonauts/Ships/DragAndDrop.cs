@@ -22,7 +22,6 @@ public class DragAndDrop : MonoBehaviour
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);
 
-        // TODO filter the raycast to only hit draggable objects.
         LayerMask layerMask = LayerMask.GetMask("Draggable");
         RaycastHit2D hit = Physics2D.Raycast(mousePositionWorld, Vector2.zero, Mathf.Infinity, layerMask);
 
@@ -32,6 +31,10 @@ public class DragAndDrop : MonoBehaviour
             }
             dragTarget = hit.transform.GetComponent<Rigidbody2D>();
             dragTarget.gameObject.layer = LayerMask.NameToLayer("Dragging");
+            Inventory inventory = dragTarget.GetComponentInParent<Inventory>();
+            if (inventory) {
+                inventory.RemoveResource(dragTarget.GetComponent<Resource>());
+            }
             dragRoutine = StartCoroutine(DragTarget());
         }
     }
@@ -63,8 +66,15 @@ public class DragAndDrop : MonoBehaviour
         StopCoroutine(dragRoutine);
         dragRoutine = null;
 
-        // Drop the drag target into an inventory, if there is one that can take it.
-        // Otherwise drop it into the world.
+        // Check for an inventory.
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);
+        RaycastHit2D[] hits = Physics2D.RaycastAll(mousePositionWorld, Vector2.zero);
+        RaycastHit2D hit = System.Array.Find(hits, h => h.collider.GetComponent<Inventory>());
+        if (hit)
+        {
+            hit.collider.GetComponent<Inventory>().AddResource(dragTarget.GetComponent<Resource>());
+        }
 
         dragTarget.gameObject.layer = LayerMask.NameToLayer("Draggable");
         dragTarget = null;
