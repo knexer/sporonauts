@@ -12,6 +12,7 @@ public enum ShipState {
 public class Ship : MonoBehaviour
 {
     [SerializeField] private CameraFocuser cameraFocuser;
+    [SerializeField] private DragAndDrop dragAndDrop;
 
     private ShipState state;
     private ShipInput input;
@@ -28,6 +29,8 @@ public class Ship : MonoBehaviour
         input.Flying.ActivateEngine.canceled += OnDeactivateEngine;
         input.Flying.SwitchToInventory.performed += OnSwitchToInventory;
         input.Inventory.SwitchToFlying.performed += OnSwitchToFlying;
+        input.Inventory.Drag.performed += dragAndDrop.OnDragBegin;
+        input.Inventory.Drag.canceled += dragAndDrop.OnDrop;
         input.Flying.Enable();
         input.Inventory.Disable();
     }
@@ -39,6 +42,8 @@ public class Ship : MonoBehaviour
         input.Flying.ActivateEngine.canceled += OnDeactivateEngine;
         input.Flying.SwitchToInventory.performed -= OnSwitchToInventory;
         input.Inventory.SwitchToFlying.performed -= OnSwitchToFlying;
+        input.Inventory.Drag.performed -= dragAndDrop.OnDragBegin;
+        input.Inventory.Drag.canceled -= dragAndDrop.OnDrop;
     }
 
     private void OnActivateEngine(InputAction.CallbackContext context) {

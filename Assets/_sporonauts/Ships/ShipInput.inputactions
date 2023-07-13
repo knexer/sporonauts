@@ -54,7 +54,7 @@
             "id": "2bc81ea1-86eb-4030-bfa2-a1ab72110791",
             "actions": [
                 {
-                    "name": "Collect",
+                    "name": "Drag",
                     "type": "Button",
                     "id": "ae1ed454-4c41-4ed3-9792-38c13e3b25eb",
                     "expectedControlType": "Button",
@@ -80,7 +80,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Collect",
+                    "action": "Drag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

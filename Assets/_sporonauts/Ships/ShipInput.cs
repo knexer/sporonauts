@@ -76,7 +76,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             ""id"": ""2bc81ea1-86eb-4030-bfa2-a1ab72110791"",
             ""actions"": [
                 {
-                    ""name"": ""Collect"",
+                    ""name"": ""Drag"",
                     ""type"": ""Button"",
                     ""id"": ""ae1ed454-4c41-4ed3-9792-38c13e3b25eb"",
                     ""expectedControlType"": ""Button"",
@@ -102,7 +102,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Collect"",
+                    ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -128,7 +128,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         m_Flying_SwitchToInventory = m_Flying.FindAction("SwitchToInventory", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
-        m_Inventory_Collect = m_Inventory.FindAction("Collect", throwIfNotFound: true);
+        m_Inventory_Drag = m_Inventory.FindAction("Drag", throwIfNotFound: true);
         m_Inventory_SwitchToFlying = m_Inventory.FindAction("SwitchToFlying", throwIfNotFound: true);
     }
 
@@ -245,13 +245,13 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     // Inventory
     private readonly InputActionMap m_Inventory;
     private List<IInventoryActions> m_InventoryActionsCallbackInterfaces = new List<IInventoryActions>();
-    private readonly InputAction m_Inventory_Collect;
+    private readonly InputAction m_Inventory_Drag;
     private readonly InputAction m_Inventory_SwitchToFlying;
     public struct InventoryActions
     {
         private @ShipInput m_Wrapper;
         public InventoryActions(@ShipInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Collect => m_Wrapper.m_Inventory_Collect;
+        public InputAction @Drag => m_Wrapper.m_Inventory_Drag;
         public InputAction @SwitchToFlying => m_Wrapper.m_Inventory_SwitchToFlying;
         public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
@@ -262,9 +262,9 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_InventoryActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_InventoryActionsCallbackInterfaces.Add(instance);
-            @Collect.started += instance.OnCollect;
-            @Collect.performed += instance.OnCollect;
-            @Collect.canceled += instance.OnCollect;
+            @Drag.started += instance.OnDrag;
+            @Drag.performed += instance.OnDrag;
+            @Drag.canceled += instance.OnDrag;
             @SwitchToFlying.started += instance.OnSwitchToFlying;
             @SwitchToFlying.performed += instance.OnSwitchToFlying;
             @SwitchToFlying.canceled += instance.OnSwitchToFlying;
@@ -272,9 +272,9 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IInventoryActions instance)
         {
-            @Collect.started -= instance.OnCollect;
-            @Collect.performed -= instance.OnCollect;
-            @Collect.canceled -= instance.OnCollect;
+            @Drag.started -= instance.OnDrag;
+            @Drag.performed -= instance.OnDrag;
+            @Drag.canceled -= instance.OnDrag;
             @SwitchToFlying.started -= instance.OnSwitchToFlying;
             @SwitchToFlying.performed -= instance.OnSwitchToFlying;
             @SwitchToFlying.canceled -= instance.OnSwitchToFlying;
@@ -302,7 +302,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     }
     public interface IInventoryActions
     {
-        void OnCollect(InputAction.CallbackContext context);
+        void OnDrag(InputAction.CallbackContext context);
         void OnSwitchToFlying(InputAction.CallbackContext context);
     }
 }
