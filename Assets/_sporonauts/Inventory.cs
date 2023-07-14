@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -10,7 +11,9 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Resource[] startingItemPrefabs;
 
     // The types of resources that can be added to this inventory. Empty array means any resource can be added.
-    [SerializeField] private ResourceType[] acceptedResourceTypes;
+    [SerializeField] public ResourceType[] acceptedResourceTypes;
+    // The exact count of each resource type that can be added to this inventory. Empty array means any number of each resource can be added.
+    [SerializeField] public ResourceType[] acceptedResourceTypesExactCount;
 
     private List<Resource> items = new List<Resource>();
 
@@ -58,8 +61,21 @@ public class Inventory : MonoBehaviour
     }
 
     public bool CanAddResource(Resource resource){
-        if (acceptedResourceTypes.Length > 0 && !Array.Exists(acceptedResourceTypes, type => type == resource.GetResourceType())) {
+        if (items.Count >= maxItems) {
             return false;
+        }
+        if (acceptedResourceTypes.Length > 0){
+            return Array.Exists(acceptedResourceTypes, type => type == resource.GetResourceType());
+        }
+        if (acceptedResourceTypesExactCount.Length > 0){
+            int count = 0;
+            foreach (Resource item in items) {
+                if (item.GetResourceType() == resource.GetResourceType()) {
+                    count++;
+                }
+            }
+            int allowedCount = acceptedResourceTypesExactCount.Count(type => type == resource.GetResourceType());
+            return count < allowedCount;
         }
         return items.Count < maxItems;
     }

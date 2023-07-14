@@ -1683,18 +1683,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 241222463267232615, guid: 8d587bce855154c0ab106608ab9347a2, type: 3}
-      propertyPath: requiredResources.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 241222463267232615, guid: 8d587bce855154c0ab106608ab9347a2, type: 3}
-      propertyPath: requiredResources.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 241222463267232615, guid: 8d587bce855154c0ab106608ab9347a2, type: 3}
-      propertyPath: requiredResources.Array.data[1]
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2021452648878204907, guid: 8d587bce855154c0ab106608ab9347a2, type: 3}
       propertyPath: m_Name
       value: BuildingFoundation

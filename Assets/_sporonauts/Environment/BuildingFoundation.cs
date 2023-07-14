@@ -10,6 +10,7 @@ public class BuildingFoundation : MonoBehaviour
     [SerializeField] private Inventory buildResourceInventory;
     
     private void Awake() {
+        buildResourceInventory.acceptedResourceTypesExactCount = requiredResources;
         buildResourceInventory.OnContentsChanged += OnBuildResourceInventoryChanged;
     }
 
@@ -24,7 +25,7 @@ public class BuildingFoundation : MonoBehaviour
             Destroy(buildResourceInventory.RemoveResourceOfType(type).gameObject);
         }
         Instantiate(buildingPrefab, buildAnchor.position, Quaternion.identity, buildAnchor);
-        
+
         buildResourceInventory.OnContentsChanged -= OnBuildResourceInventoryChanged;
         Destroy(buildResourceInventory.gameObject);
     }

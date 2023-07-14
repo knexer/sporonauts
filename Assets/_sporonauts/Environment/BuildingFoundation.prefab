@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildAnchor: {fileID: 7223937075743290763}
   buildingPrefab: {fileID: 8326193182843887432, guid: d2664b5bce40b4198beaf5f3ef8d647b, type: 3}
-  requiredResources: 00000000
+  requiredResources: 0100000000000000
   buildResourceInventory: {fileID: 1677025116602365400}
 --- !u!1 &3231707544683406989
 GameObject:
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxItems: 3
   startingItemPrefabs: []
+  acceptedResourceTypes: 
 --- !u!58 &2048557002397485406
 CircleCollider2D:
   m_ObjectHideFlags: 0

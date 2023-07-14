@@ -38,6 +38,10 @@ public class DragAndDrop : MonoBehaviour
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);
 
+        if (Vector2.Distance(mousePositionWorld, transform.position) > maxRange) {
+            return null;
+        }
+
         LayerMask layerMask = LayerMask.GetMask("Draggable");
         RaycastHit2D hit = Physics2D.Raycast(mousePositionWorld, Vector2.zero, Mathf.Infinity, layerMask);
         if (!hit) {
@@ -46,13 +50,9 @@ public class DragAndDrop : MonoBehaviour
 
         Resource target = hit.collider.GetComponent<Resource>();
         if (hit.collider.GetComponentInParent<ResourceDeposit>()){
-            target = hit.collider.GetComponentInParent<ResourceDeposit>().MakeResource().GetComponent<Resource>();
+            target = hit.collider.GetComponentInParent<ResourceDeposit>().MakeResource(mousePositionWorld).GetComponent<Resource>();
         }
         if (!target) {
-            return null;
-        }
-        
-        if (Vector2.Distance(target.transform.position, transform.position) > maxRange) {
             return null;
         }
 
