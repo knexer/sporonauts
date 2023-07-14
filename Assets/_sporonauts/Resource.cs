@@ -11,6 +11,14 @@ public class Resource : MonoBehaviour
     [SerializeField] private ResourceType type;
     [SerializeField] private float mass;
 
+    public ResourceType GetResourceType() {
+        return type;
+    }
+
+    public float GetMass() {
+        return mass;
+    }
+
     private void Awake() {
         GetComponent<Rigidbody2D>().mass = mass;
     }

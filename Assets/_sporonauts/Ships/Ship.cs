@@ -13,6 +13,7 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private CameraFocuser cameraFocuser;
     [SerializeField] private DragAndDrop dragAndDrop;
+    [SerializeField] private float dryMass;
 
     private ShipState state;
     private ShipInput input;
@@ -20,6 +21,13 @@ public class Ship : MonoBehaviour
     private void Awake() {
         input = new ShipInput();
         state = ShipState.Control;
+        foreach (Inventory inventory in GetComponentsInChildren<Inventory>()) {
+            inventory.OnContentsChanged += UpdateMass;
+        }
+    }
+
+    private void Start() {
+        UpdateMass();
     }
 
     private void OnEnable() {
@@ -66,5 +74,13 @@ public class Ship : MonoBehaviour
         input.Flying.Disable();
         input.Inventory.Enable();
         cameraFocuser.Focus(gameObject);
+    }
+
+    private void UpdateMass() {
+        float wetMass = dryMass;
+        foreach(Inventory inventory in GetComponentsInChildren<Inventory>()) {
+            wetMass += inventory.GetContentsMass();
+        }
+        GetComponent<Rigidbody2D>().mass = wetMass;
     }
 }

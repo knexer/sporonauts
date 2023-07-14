@@ -18,6 +18,14 @@ public class Inventory : MonoBehaviour
         return items.AsReadOnly();
     }
 
+    public float GetContentsMass() {
+        float mass = 0f;
+        foreach (Resource item in items) {
+            mass += item.GetMass();
+        }
+        return mass;
+    }
+
     public event System.Action OnContentsChanged;
 
     private void Awake() {

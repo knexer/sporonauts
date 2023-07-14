@@ -898,6 +898,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFocuser: {fileID: 519420033}
   dragAndDrop: {fileID: 608575470}
+  dryMass: 10
 --- !u!114 &608575470
 MonoBehaviour:
   m_ObjectHideFlags: 0
