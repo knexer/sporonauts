@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1121423968088804872}
   - component: {fileID: 2544254238313476366}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 778204415112925384}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.00000017881393, y: 0.00000009685755, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2312789139806985509}
@@ -93,7 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2763359741968346112}
-  m_Layer: 0
+  - component: {fileID: 241222463267232615}
+  m_Layer: 8
   m_Name: BuildingFoundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,6 +119,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &241222463267232615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021452648878204907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192a0cd0be98046dbacfe34603848286, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildAnchor: {fileID: 7223937075743290763}
+  buildingPrefab: {fileID: 8326193182843887432, guid: d2664b5bce40b4198beaf5f3ef8d647b, type: 3}
+  requiredResources: 00000000
+  buildResourceInventory: {fileID: 1677025116602365400}
 --- !u!1 &3231707544683406989
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7223937075743290763}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Building Anchor Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +177,7 @@ GameObject:
   - component: {fileID: 2312789139806985509}
   - component: {fileID: 1677025116602365400}
   - component: {fileID: 2048557002397485406}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 887544107580679240}
   - component: {fileID: 5363852578672130956}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Depiction
   m_TagString: Untagged
   m_Icon: {fileID: 0}

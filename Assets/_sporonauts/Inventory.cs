@@ -18,6 +18,25 @@ public class Inventory : MonoBehaviour
         return items.AsReadOnly();
     }
 
+    public bool HasItems(ResourceType[] types) {
+        List<Resource> availableResources = new List<Resource>(items);
+        foreach (ResourceType type in types) {
+            bool found = false;
+            foreach (Resource resource in availableResources) {
+                if (resource.GetResourceType() == type) {
+                    found = true;
+                    availableResources.Remove(resource);
+                    break;
+                }
+            }
+            if (!found) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public float GetContentsMass() {
         float mass = 0f;
         foreach (Resource item in items) {
@@ -51,12 +70,22 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void RemoveResource(Resource resource) {
+    public Resource RemoveResource(Resource resource) {
         items.Remove(resource);
 
         resource.transform.SetParent(null);
         resource.OnRemovedFromInventory(this);
 
         OnContentsChanged?.Invoke();
+        return resource;
+    }
+
+    public Resource RemoveResourceOfType(ResourceType type) {
+        foreach (Resource resource in items) {
+            if (resource.GetResourceType() == type) {
+                return RemoveResource(resource);
+            }
+        }
+        return null;
     }
 }
