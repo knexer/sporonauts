@@ -19,21 +19,21 @@ public class DragAndDrop : MonoBehaviour
 
     public void OnDragBegin(InputAction.CallbackContext context){
         
-        Rigidbody2D target = GetDragTarget();
+        Resource target = GetDragTarget();
         if (target == null) {
             return;
         }
 
-        dragTarget = target;
-        dragTarget.gameObject.layer = LayerMask.NameToLayer("Dragging");
-        Inventory inventory = dragTarget.GetComponentInParent<Inventory>();
+        target.gameObject.layer = LayerMask.NameToLayer("Dragging");
+        Inventory inventory = target.GetComponentInParent<Inventory>();
         if (inventory) {
-            inventory.RemoveResource(dragTarget.GetComponent<Resource>());
+            inventory.RemoveResource(target);
         }
+        dragTarget = target.GetComponent<Rigidbody2D>();
         dragRoutine = StartCoroutine(DragTarget());
     }
 
-    private Rigidbody2D GetDragTarget() {
+    private Resource GetDragTarget() {
         // Convert the mouse position to world space and do a raycast to find the draggable object.
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);
@@ -44,15 +44,15 @@ public class DragAndDrop : MonoBehaviour
             return null;
         }
 
-        Rigidbody2D target = hit.transform.GetComponent<Rigidbody2D>();
-        if (hit.transform.GetComponentInParent<ResourceDeposit>()){
-            target = hit.transform.GetComponentInParent<ResourceDeposit>().MakeResource().GetComponent<Rigidbody2D>();
+        Resource target = hit.collider.GetComponent<Resource>();
+        if (hit.collider.GetComponentInParent<ResourceDeposit>()){
+            target = hit.collider.GetComponentInParent<ResourceDeposit>().MakeResource().GetComponent<Resource>();
         }
         if (!target) {
             return null;
         }
         
-        if (Vector2.Distance(target.position, transform.position) > maxRange) {
+        if (Vector2.Distance(target.transform.position, transform.position) > maxRange) {
             return null;
         }
 
@@ -87,7 +87,7 @@ public class DragAndDrop : MonoBehaviour
         dragRoutine = null;
 
         dragTarget.gameObject.layer = LayerMask.NameToLayer("Draggable");
-        
+
         // Check for an inventory.
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);

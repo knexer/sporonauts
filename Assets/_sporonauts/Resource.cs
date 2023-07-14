@@ -28,10 +28,12 @@ public class Resource : MonoBehaviour
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0f;
         DestroyImmediate(rb);
+        GetComponent<Collider2D>().isTrigger = true;
     }
 
     public void OnRemovedFromInventory(Inventory inventory) {
         Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
         rb.mass = mass;
+        GetComponent<Collider2D>().isTrigger = false;
     }
 }
