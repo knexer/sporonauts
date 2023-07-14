@@ -30,12 +30,12 @@ public class PopEngine : MonoBehaviour, IShipComponent
 
         StopCoroutine(inflateCoroutine);
         inflateCoroutine = null;
+        float inflatePercent = (balloon.transform.localScale.x - 1) / (inflateScale - 1);
 
         Resource fuel = inventory.GetContents()[0];
         inventory.RemoveResource(fuel);
         Destroy(fuel.gameObject);
 
-        float inflatePercent = (balloon.transform.localScale.x - 1) / (inflateScale - 1);
         Vector2 direction = -transform.up;
         GetComponentInParent<Rigidbody2D>().AddForce(direction * popForce * inflatePercent, ForceMode2D.Impulse);
     }
@@ -57,6 +57,9 @@ public class PopEngine : MonoBehaviour, IShipComponent
         balloon.SetActive(inventory.NumItems() > 0);
         if (balloon.activeSelf) {
             inventory.GetContents()[0].GetComponentsInChildren<SpriteRenderer>()[0].enabled = false;
+            if (inflateCoroutine == null) {
+                balloon.transform.localScale = Vector3.one;
+            }
         }
     }
 }

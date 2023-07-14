@@ -26,23 +26,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool AddResource(Resource resource) {
-        if (items.Count >= maxItems) {
+    public bool CanAddResource(Resource resource){
+        return items.Count < maxItems;
+    }
+
+    public bool AddResource(Resource resource, bool worldPositionStays = false) {
+        if (!CanAddResource(resource)) {
             return false;
         }
         items.Add(resource);
 
-        resource.transform.SetParent(transform);
-
-        SpringJoint2D joint = resource.gameObject.AddComponent<SpringJoint2D>();
-        joint.frequency = 10f;
-        joint.dampingRatio = .9f;
-
-        joint.autoConfigureConnectedAnchor = true;
-        joint.connectedBody = GetComponentInParent<Rigidbody2D>();
-        joint.anchor = Vector2.zero;
-        joint.autoConfigureDistance = false;
-        joint.autoConfigureConnectedAnchor = false;
+        resource.transform.SetParent(transform, worldPositionStays);
+        resource.OnAddedToInventory(this);
 
         OnContentsChanged?.Invoke();
         return true;
@@ -51,12 +46,8 @@ public class Inventory : MonoBehaviour
     public void RemoveResource(Resource resource) {
         items.Remove(resource);
 
-        // Remove the FixedJoint2D from the resource.
         resource.transform.SetParent(null);
-        SpringJoint2D joint = resource.GetComponent<SpringJoint2D>();
-        if (joint) {
-            Destroy(joint);
-        }
+        resource.OnRemovedFromInventory(this);
 
         OnContentsChanged?.Invoke();
     }

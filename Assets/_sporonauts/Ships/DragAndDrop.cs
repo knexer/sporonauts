@@ -44,8 +44,6 @@ public class DragAndDrop : MonoBehaviour
             return null;
         }
 
-        Debug.Log(hit.transform.name);
-
         Rigidbody2D target = hit.transform.GetComponent<Rigidbody2D>();
         if (hit.transform.GetComponentInParent<ResourceDeposit>()){
             target = hit.transform.GetComponentInParent<ResourceDeposit>().MakeResource().GetComponent<Rigidbody2D>();
@@ -88,6 +86,8 @@ public class DragAndDrop : MonoBehaviour
         StopCoroutine(dragRoutine);
         dragRoutine = null;
 
+        dragTarget.gameObject.layer = LayerMask.NameToLayer("Draggable");
+        
         // Check for an inventory.
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mousePositionWorld = mainCamera.ScreenToWorldPoint(mousePosition);
@@ -95,10 +95,9 @@ public class DragAndDrop : MonoBehaviour
         RaycastHit2D hit = System.Array.Find(hits, h => h.collider.GetComponent<Inventory>());
         if (hit)
         {
-            hit.collider.GetComponent<Inventory>().AddResource(dragTarget.GetComponent<Resource>());
+            hit.collider.GetComponent<Inventory>().AddResource(dragTarget.GetComponent<Resource>(), true);
         }
 
-        dragTarget.gameObject.layer = LayerMask.NameToLayer("Draggable");
         dragTarget = null;
     }
 }

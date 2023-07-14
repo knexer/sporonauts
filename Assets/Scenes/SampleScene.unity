@@ -449,7 +449,7 @@ GameObject:
   - component: {fileID: 359837124}
   - component: {fileID: 359837125}
   - component: {fileID: 359837127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Fuel Deposit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1120,6 +1120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 758256684}
   - component: {fileID: 758256685}
+  - component: {fileID: 758256686}
   m_Layer: 3
   m_Name: EngineMount
   m_TagString: Untagged
@@ -1155,6 +1156,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d666a4a3a024b54a0c6f21f61023a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &758256686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 758256683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 308ed8cfe06974080bb530d2522b88ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceInventory: {fileID: 923473423}
 --- !u!1 &834806944
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,7 +1180,7 @@ GameObject:
   - component: {fileID: 834806945}
   - component: {fileID: 834806946}
   - component: {fileID: 834806947}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1286,7 +1300,7 @@ GameObject:
   - component: {fileID: 837264416}
   - component: {fileID: 837264417}
   - component: {fileID: 837264418}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1705,7 +1719,7 @@ GameObject:
   - component: {fileID: 975499970}
   - component: {fileID: 975499971}
   - component: {fileID: 975499972}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1926,7 +1940,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1243471969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Depiction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2048,7 +2062,7 @@ GameObject:
   - component: {fileID: 1471324846}
   - component: {fileID: 1471324847}
   - component: {fileID: 1471324848}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2761,7 +2775,7 @@ GameObject:
   - component: {fileID: 2053344932}
   - component: {fileID: 2053344933}
   - component: {fileID: 2053344934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
