@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,6 +8,9 @@ public class Inventory : MonoBehaviour
 {
     [SerializeField] private int maxItems = 1;
     [SerializeField] private Resource[] startingItemPrefabs;
+
+    // The types of resources that can be added to this inventory. Empty array means any resource can be added.
+    [SerializeField] private ResourceType[] acceptedResourceTypes;
 
     private List<Resource> items = new List<Resource>();
 
@@ -54,6 +58,9 @@ public class Inventory : MonoBehaviour
     }
 
     public bool CanAddResource(Resource resource){
+        if (acceptedResourceTypes.Length > 0 && !Array.Exists(acceptedResourceTypes, type => type == resource.GetResourceType())) {
+            return false;
+        }
         return items.Count < maxItems;
     }
 

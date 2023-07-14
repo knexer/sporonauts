@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum ResourceType {
-    Fuel
+    Fuel,
+    Wood
 }
 
 public class Resource : MonoBehaviour
