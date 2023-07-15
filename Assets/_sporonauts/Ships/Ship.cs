@@ -28,11 +28,18 @@ public class Ship : MonoBehaviour
 
     private void Start() {
         UpdateMass();
+        StartCoroutine(EnableInputAfterDelay());
     }
 
-    private void OnEnable() {
+    private IEnumerator EnableInputAfterDelay() {
+        // Wait for 0.1 seconds to avoid input being triggered on the first frame,
+        // particularly when hitting the play button in editor!
+        yield return new WaitForSeconds(0.1f);
+        EnableInput();
+    }
+
+    private void EnableInput() {
         input.Enable();
-        // TODO some of this should maybe be in awake
         input.Flying.ActivateEngine.performed += OnActivateEngine;
         input.Flying.ActivateEngine.canceled += OnDeactivateEngine;
         input.Flying.SwitchToInventory.performed += OnSwitchToInventory;
