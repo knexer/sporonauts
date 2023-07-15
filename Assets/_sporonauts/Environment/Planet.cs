@@ -9,6 +9,14 @@ public class Planet : MonoBehaviour
 
     static public List<Planet> planets = new List<Planet>();
 
+    public static Vector2 CalculateNetGravity(Vector2 position) {
+        Vector2 gravity = Vector2.zero;
+        foreach (Planet planet in planets) {
+            gravity += planet.CalculateGravity(position);
+        }
+        return gravity;
+    }
+
     public Vector2 CalculateGravity(Vector2 position) {
         Vector2 direction = (Vector2)transform.position - position;
         float distance = direction.magnitude;

@@ -452,7 +452,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 431473971}
-  m_Mesh: {fileID: 4300000, guid: ccf20e1a0826c4e1696f91778241e364, type: 2}
+  m_Mesh: {fileID: 4300000, guid: d7f26f541db0d45ec8f1497bf0ba2a0a, type: 2}
 --- !u!4 &431473975
 Transform:
   m_ObjectHideFlags: 0
@@ -767,6 +767,8 @@ MonoBehaviour:
   dragAndDrop: {fileID: 608575470}
   engineMount: {fileID: 758256685}
   dryMass: 8
+  inventoryZoomScale: 2
+  flyingZoomScale: 5
 --- !u!114 &608575470
 MonoBehaviour:
   m_ObjectHideFlags: 0
