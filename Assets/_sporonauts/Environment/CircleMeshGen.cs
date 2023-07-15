@@ -40,12 +40,14 @@ public class CircleGenerator : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        
+        #if UNITY_EDITOR
+        // The path where you want to save the mesh
+        string path = "Assets/Circle.asset";
 
-        // Update color
-        MeshRenderer meshRenderer = this.GetComponent<MeshRenderer>();
-        meshRenderer.sharedMaterial.color = color;
-
-        GetComponent<Planet>().radius = radius;
-        GetComponent<CircleCollider2D>().radius = radius;
+        // Create the mesh asset
+        AssetDatabase.CreateAsset(mesh, path);
+        AssetDatabase.SaveAssets();
+        #endif
     }
 }
