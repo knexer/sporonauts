@@ -22,6 +22,7 @@ public class CircleGenerator : MonoBehaviour
         meshFilter.mesh = mesh;
 
         Vector3[] vertices = new Vector3[numSegments + 1];
+        Vector2[] uvs = new Vector2[numSegments + 1]; // Create an array to hold the UVs
         int[] triangles = new int[numSegments * 3];
 
         float angleStep = 360.0f / numSegments;
@@ -29,6 +30,15 @@ public class CircleGenerator : MonoBehaviour
         {
             float angle = angleStep * i;
             vertices[i] = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad), 0) * radius;
+
+            if(i == 0) // center vertex
+            {
+                uvs[i] = new Vector2(0, 0);
+            }
+            else
+            {
+                uvs[i] = new Vector2(1, angle / (2 * Mathf.PI));
+            }
         }
 
         for (int i = 0; i < numSegments; i++)
@@ -40,6 +50,7 @@ public class CircleGenerator : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+        mesh.uv = uvs;
         
         #if UNITY_EDITOR
         // The path where you want to save the mesh
