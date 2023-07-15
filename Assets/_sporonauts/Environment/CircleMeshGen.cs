@@ -17,8 +17,6 @@ public class CircleGenerator : MonoBehaviour
 
     private void GenerateCircle()
     {
-        float radius = GetComponent<Planet>().radius;
-
         MeshFilter meshFilter = this.GetComponent<MeshFilter>();
         Mesh mesh = new Mesh();
         meshFilter.mesh = mesh;
