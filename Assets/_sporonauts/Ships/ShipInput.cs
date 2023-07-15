@@ -53,6 +53,24 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Walk Clockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""88017d82-948b-4e6e-b67b-7722c9052964"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Walk Anticlockwise"",
+                    ""type"": ""Button"",
+                    ""id"": ""7693b713-6e94-4bcb-b55f-b7a6dfef3289"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -86,6 +104,50 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OrientEngineMount"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d3ee22f-fe97-447a-8f56-3c6084e4c24a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk Clockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b8ae2046-6c74-41f5-b888-8a384e017b62"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk Clockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f2d45f75-7780-4f91-9c47-d57e8fbedf98"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk Anticlockwise"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67494745-47aa-4023-aee7-b35f206b8815"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk Anticlockwise"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -147,6 +209,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         m_Flying_ActivateEngine = m_Flying.FindAction("ActivateEngine", throwIfNotFound: true);
         m_Flying_SwitchToInventory = m_Flying.FindAction("SwitchToInventory", throwIfNotFound: true);
         m_Flying_OrientEngineMount = m_Flying.FindAction("OrientEngineMount", throwIfNotFound: true);
+        m_Flying_WalkClockwise = m_Flying.FindAction("Walk Clockwise", throwIfNotFound: true);
+        m_Flying_WalkAnticlockwise = m_Flying.FindAction("Walk Anticlockwise", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Drag = m_Inventory.FindAction("Drag", throwIfNotFound: true);
@@ -215,6 +279,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Flying_ActivateEngine;
     private readonly InputAction m_Flying_SwitchToInventory;
     private readonly InputAction m_Flying_OrientEngineMount;
+    private readonly InputAction m_Flying_WalkClockwise;
+    private readonly InputAction m_Flying_WalkAnticlockwise;
     public struct FlyingActions
     {
         private @ShipInput m_Wrapper;
@@ -222,6 +288,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         public InputAction @ActivateEngine => m_Wrapper.m_Flying_ActivateEngine;
         public InputAction @SwitchToInventory => m_Wrapper.m_Flying_SwitchToInventory;
         public InputAction @OrientEngineMount => m_Wrapper.m_Flying_OrientEngineMount;
+        public InputAction @WalkClockwise => m_Wrapper.m_Flying_WalkClockwise;
+        public InputAction @WalkAnticlockwise => m_Wrapper.m_Flying_WalkAnticlockwise;
         public InputActionMap Get() { return m_Wrapper.m_Flying; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -240,6 +308,12 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @OrientEngineMount.started += instance.OnOrientEngineMount;
             @OrientEngineMount.performed += instance.OnOrientEngineMount;
             @OrientEngineMount.canceled += instance.OnOrientEngineMount;
+            @WalkClockwise.started += instance.OnWalkClockwise;
+            @WalkClockwise.performed += instance.OnWalkClockwise;
+            @WalkClockwise.canceled += instance.OnWalkClockwise;
+            @WalkAnticlockwise.started += instance.OnWalkAnticlockwise;
+            @WalkAnticlockwise.performed += instance.OnWalkAnticlockwise;
+            @WalkAnticlockwise.canceled += instance.OnWalkAnticlockwise;
         }
 
         private void UnregisterCallbacks(IFlyingActions instance)
@@ -253,6 +327,12 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @OrientEngineMount.started -= instance.OnOrientEngineMount;
             @OrientEngineMount.performed -= instance.OnOrientEngineMount;
             @OrientEngineMount.canceled -= instance.OnOrientEngineMount;
+            @WalkClockwise.started -= instance.OnWalkClockwise;
+            @WalkClockwise.performed -= instance.OnWalkClockwise;
+            @WalkClockwise.canceled -= instance.OnWalkClockwise;
+            @WalkAnticlockwise.started -= instance.OnWalkAnticlockwise;
+            @WalkAnticlockwise.performed -= instance.OnWalkAnticlockwise;
+            @WalkAnticlockwise.canceled -= instance.OnWalkAnticlockwise;
         }
 
         public void RemoveCallbacks(IFlyingActions instance)
@@ -329,6 +409,8 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         void OnActivateEngine(InputAction.CallbackContext context);
         void OnSwitchToInventory(InputAction.CallbackContext context);
         void OnOrientEngineMount(InputAction.CallbackContext context);
+        void OnWalkClockwise(InputAction.CallbackContext context);
+        void OnWalkAnticlockwise(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {
