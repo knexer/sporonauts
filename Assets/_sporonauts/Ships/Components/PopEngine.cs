@@ -36,7 +36,7 @@ public class PopEngine : MonoBehaviour, IShipComponent
         inventory.RemoveResource(fuel);
         Destroy(fuel.gameObject);
 
-        Vector2 direction = -transform.up;
+        Vector2 direction = transform.up;
         GetComponentInParent<Rigidbody2D>().AddForce(direction * popForce * inflatePercent, ForceMode2D.Impulse);
     }
 

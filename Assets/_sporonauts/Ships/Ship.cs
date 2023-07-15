@@ -13,6 +13,7 @@ public class Ship : MonoBehaviour
 {
     [SerializeField] private CameraFocuser cameraFocuser;
     [SerializeField] private DragAndDrop dragAndDrop;
+    [SerializeField] private EngineMount engineMount;
     [SerializeField] private float dryMass;
 
     private ShipState state;
@@ -43,6 +44,7 @@ public class Ship : MonoBehaviour
         input.Flying.ActivateEngine.performed += OnActivateEngine;
         input.Flying.ActivateEngine.canceled += OnDeactivateEngine;
         input.Flying.SwitchToInventory.performed += OnSwitchToInventory;
+        input.Flying.OrientEngineMount.performed += engineMount.PointAtMouse;
         input.Inventory.SwitchToFlying.performed += OnSwitchToFlying;
         input.Inventory.Drag.performed += dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled += dragAndDrop.OnDrop;
@@ -56,6 +58,7 @@ public class Ship : MonoBehaviour
         input.Flying.ActivateEngine.performed -= OnActivateEngine;
         input.Flying.ActivateEngine.canceled += OnDeactivateEngine;
         input.Flying.SwitchToInventory.performed -= OnSwitchToInventory;
+        input.Flying.OrientEngineMount.performed -= engineMount.PointAtMouse;
         input.Inventory.SwitchToFlying.performed -= OnSwitchToFlying;
         input.Inventory.Drag.performed -= dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled -= dragAndDrop.OnDrop;
@@ -74,6 +77,7 @@ public class Ship : MonoBehaviour
         input.Flying.Enable();
         input.Inventory.Disable();
         cameraFocuser.Unfocus();
+        engineMount.Activate();
     }
 
     private void OnSwitchToInventory(InputAction.CallbackContext context) {
@@ -81,6 +85,7 @@ public class Ship : MonoBehaviour
         input.Flying.Disable();
         input.Inventory.Enable();
         cameraFocuser.Focus(gameObject);
+        engineMount.Deactivate();
     }
 
     private void UpdateMass() {

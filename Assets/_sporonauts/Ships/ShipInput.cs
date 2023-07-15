@@ -44,6 +44,15 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OrientEngineMount"",
+                    ""type"": ""Value"",
+                    ""id"": ""cf21d22d-0381-47ec-82d7-a17057ca5716"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SwitchToInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7981be3f-528d-4889-95b8-ba4ee7e855c0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OrientEngineMount"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -126,6 +146,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
         m_Flying = asset.FindActionMap("Flying", throwIfNotFound: true);
         m_Flying_ActivateEngine = m_Flying.FindAction("ActivateEngine", throwIfNotFound: true);
         m_Flying_SwitchToInventory = m_Flying.FindAction("SwitchToInventory", throwIfNotFound: true);
+        m_Flying_OrientEngineMount = m_Flying.FindAction("OrientEngineMount", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_Drag = m_Inventory.FindAction("Drag", throwIfNotFound: true);
@@ -193,12 +214,14 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     private List<IFlyingActions> m_FlyingActionsCallbackInterfaces = new List<IFlyingActions>();
     private readonly InputAction m_Flying_ActivateEngine;
     private readonly InputAction m_Flying_SwitchToInventory;
+    private readonly InputAction m_Flying_OrientEngineMount;
     public struct FlyingActions
     {
         private @ShipInput m_Wrapper;
         public FlyingActions(@ShipInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @ActivateEngine => m_Wrapper.m_Flying_ActivateEngine;
         public InputAction @SwitchToInventory => m_Wrapper.m_Flying_SwitchToInventory;
+        public InputAction @OrientEngineMount => m_Wrapper.m_Flying_OrientEngineMount;
         public InputActionMap Get() { return m_Wrapper.m_Flying; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -214,6 +237,9 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @SwitchToInventory.started += instance.OnSwitchToInventory;
             @SwitchToInventory.performed += instance.OnSwitchToInventory;
             @SwitchToInventory.canceled += instance.OnSwitchToInventory;
+            @OrientEngineMount.started += instance.OnOrientEngineMount;
+            @OrientEngineMount.performed += instance.OnOrientEngineMount;
+            @OrientEngineMount.canceled += instance.OnOrientEngineMount;
         }
 
         private void UnregisterCallbacks(IFlyingActions instance)
@@ -224,6 +250,9 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
             @SwitchToInventory.started -= instance.OnSwitchToInventory;
             @SwitchToInventory.performed -= instance.OnSwitchToInventory;
             @SwitchToInventory.canceled -= instance.OnSwitchToInventory;
+            @OrientEngineMount.started -= instance.OnOrientEngineMount;
+            @OrientEngineMount.performed -= instance.OnOrientEngineMount;
+            @OrientEngineMount.canceled -= instance.OnOrientEngineMount;
         }
 
         public void RemoveCallbacks(IFlyingActions instance)
@@ -299,6 +328,7 @@ public partial class @ShipInput: IInputActionCollection2, IDisposable
     {
         void OnActivateEngine(InputAction.CallbackContext context);
         void OnSwitchToInventory(InputAction.CallbackContext context);
+        void OnOrientEngineMount(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {
