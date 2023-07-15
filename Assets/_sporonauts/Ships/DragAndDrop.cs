@@ -8,6 +8,7 @@ public class DragAndDrop : MonoBehaviour
     [SerializeField] private float dragForce = 10f;
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float maxRange = 2f;
+    [SerializeField] public Armleg armleg = null;
 
     private Camera mainCamera = null;
     private Rigidbody2D dragTarget = null;
@@ -15,10 +16,11 @@ public class DragAndDrop : MonoBehaviour
 
     private void Awake() {
         mainCamera = Camera.main;
+        armleg.SetRange(this, maxRange);
     }
 
     public void OnDragBegin(InputAction.CallbackContext context){
-        
+
         Resource target = GetDragTarget();
         if (target == null) {
             return;
