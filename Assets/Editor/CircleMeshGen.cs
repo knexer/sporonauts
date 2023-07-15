@@ -31,7 +31,14 @@ public class CircleGeneratorEditor
         {
             triangles[i * 3] = 0;
             triangles[i * 3 + 1] = i + 1;
-            triangles[i * 3 + 2] = (i + 2) % (numSegments + 1);
+            if (i != numSegments - 1)
+            {
+                triangles[i * 3 + 2] = i + 2;
+            }
+            else
+            {
+                triangles[i * 3 + 2] = 1; // Close the loop for the last slice
+            }
         }
 
         mesh.vertices = vertices;
