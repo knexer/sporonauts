@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Planet : MonoBehaviour
@@ -22,6 +23,14 @@ public class Planet : MonoBehaviour
         float distance = direction.magnitude;
         float gravity = this.gravity * radius / (distance * distance);
         return direction.normalized * gravity;
+    }
+
+    public static (float distance, Planet planet) GetClosestPlanetCenter(Vector2 position) {
+        return planets.Select(planet => (distance: Vector2.Distance(position, planet.transform.position), planet)).Min();
+    }
+
+    public static (float distance, Planet planet) GetClosestPlanetSurface(Vector2 position) {
+        return planets.Select(planet => (distance: Vector2.Distance(position, planet.transform.position) - planet.radius, planet)).Min();
     }
 
     private void Awake() {

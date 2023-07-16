@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 270162175}
   - component: {fileID: 270162176}
   m_Layer: 3
-  m_Name: ArmLeg
+  m_Name: Limb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -586,6 +586,7 @@ GameObject:
   - component: {fileID: 608575469}
   - component: {fileID: 608575470}
   - component: {fileID: 608575471}
+  - component: {fileID: 608575472}
   m_Layer: 3
   m_Name: Ship
   m_TagString: Untagged
@@ -667,6 +668,7 @@ MonoBehaviour:
   cameraFocuser: {fileID: 519420033}
   dragAndDrop: {fileID: 608575470}
   engineMount: {fileID: 758256685}
+  locomotion: {fileID: 608575472}
   dryMass: 8
   inventoryZoomScale: 2
   flyingZoomScale: 5
@@ -698,6 +700,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a7293abd9464958ab92e124ca4bac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &608575472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608575465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b45a9c1b2e00347b7a3b5b2378638470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  landedDistanceThreshold: 1
+  stopThresholdVelocity: 0.1
+  slowThresholdVelocity: 0.7
+  moveForce: 10
+  maxSpeed: 1
+  shipBody: {fileID: 608575467}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,7 +1117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 859207367}
   m_Layer: 3
-  m_Name: HandFoot
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1441,7 +1461,7 @@ GameObject:
   - component: {fileID: 1198142234}
   - component: {fileID: 1198142233}
   m_Layer: 3
-  m_Name: Armleg
+  m_Name: Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

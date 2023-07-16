@@ -31,24 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Walk Clockwise",
-                    "type": "Button",
-                    "id": "88017d82-948b-4e6e-b67b-7722c9052964",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Walk Anticlockwise",
-                    "type": "Button",
-                    "id": "7693b713-6e94-4bcb-b55f-b7a6dfef3289",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -82,50 +64,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "OrientEngineMount",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d3ee22f-fe97-447a-8f56-3c6084e4c24a",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Walk Clockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8ae2046-6c74-41f5-b888-8a384e017b62",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Walk Clockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f2d45f75-7780-4f91-9c47-d57e8fbedf98",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Walk Anticlockwise",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "67494745-47aa-4023-aee7-b35f206b8815",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Walk Anticlockwise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -194,6 +132,76 @@
                     "processors": "",
                     "groups": "",
                     "action": "PositionHand",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Always",
+            "id": "2056f970-022c-4cfb-bd4f-f21e65e28889",
+            "actions": [
+                {
+                    "name": "Walk Clockwise",
+                    "type": "Button",
+                    "id": "af2e819e-ac94-4d94-a316-36bd6bf1d3f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Walk AntiClockwise",
+                    "type": "Button",
+                    "id": "01b16915-0e5d-483e-a623-8b654280e7c6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "eb20dd90-1813-4703-b5b9-ca051629a327",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk Clockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63138aa4-bcac-4104-ab52-3049bbf0163e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk Clockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ddfb6891-4c1b-4a21-90a7-bb6df9296267",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk AntiClockwise",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b5fbaa8f-93a1-4edc-9054-6cc3b27df900",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Walk AntiClockwise",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

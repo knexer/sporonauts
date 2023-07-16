@@ -14,6 +14,7 @@ public class Ship : MonoBehaviour
     [SerializeField] private CameraFocuser cameraFocuser;
     [SerializeField] private DragAndDrop dragAndDrop;
     [SerializeField] private EngineMount engineMount;
+    [SerializeField] private ShipLocomotion locomotion;
     [SerializeField] private float dryMass;
     [SerializeField] private float inventoryZoomScale;
     [SerializeField] private float flyingZoomScale;
@@ -51,6 +52,10 @@ public class Ship : MonoBehaviour
         input.Inventory.Drag.performed += dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled += dragAndDrop.OnDrop;
         input.Inventory.PositionHand.performed += dragAndDrop.arm.TrackMouse;
+        input.Always.WalkClockwise.performed += locomotion.OnWalkClockwise;
+        input.Always.WalkClockwise.canceled += locomotion.OnWalkClockwise;
+        input.Always.WalkAntiClockwise.performed += locomotion.OnWalkAntiClockwise;
+        input.Always.WalkAntiClockwise.canceled += locomotion.OnWalkAntiClockwise;
         OnSwitchToFlying(new InputAction.CallbackContext());
     }
 
@@ -64,6 +69,10 @@ public class Ship : MonoBehaviour
         input.Inventory.Drag.performed -= dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled -= dragAndDrop.OnDrop;
         input.Inventory.PositionHand.performed -= dragAndDrop.arm.TrackMouse;
+        input.Always.WalkClockwise.performed -= locomotion.OnWalkClockwise;
+        input.Always.WalkClockwise.canceled -= locomotion.OnWalkClockwise;
+        input.Always.WalkAntiClockwise.performed -= locomotion.OnWalkAntiClockwise;
+        input.Always.WalkAntiClockwise.canceled -= locomotion.OnWalkAntiClockwise;
     }
 
     private void OnActivateEngine(InputAction.CallbackContext context) {
