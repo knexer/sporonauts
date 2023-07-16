@@ -133,7 +133,7 @@ MonoBehaviour:
   inventory: {fileID: 3149057458744854615}
   inflateTime: 1
   inflateScale: 2
-  popForce: 35
+  popForce: 50
   balloon: {fileID: 5766670648868646989}
 --- !u!114 &3149057458744854615
 MonoBehaviour:
