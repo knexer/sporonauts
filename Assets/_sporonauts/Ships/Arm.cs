@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Armleg : MonoBehaviour
+public class Arm : MonoBehaviour
 {
-    [SerializeField] private GameObject HandFoot;
-    [SerializeField] private GameObject ArmLeg;
-    [SerializeField] private float ArmLegScaleFactor = 10f;
+    [SerializeField] private GameObject Hand;
+    [SerializeField] private GameObject Limb;
+    [SerializeField] private float ArmScaleFactor = 10f;
     private Vector2 restPosition;
     private Transform rangeOrigin;
     private float maxRange;
@@ -16,7 +16,7 @@ public class Armleg : MonoBehaviour
     private Coroutine trackMouseRoutine = null;
 
     private void Start() {
-        restPosition = HandFoot.transform.localPosition;
+        restPosition = Hand.transform.localPosition;
         SetHandFootPosition(restPosition);
     }
 
@@ -33,11 +33,11 @@ public class Armleg : MonoBehaviour
         Quaternion localRotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, localPosition));
 
 
-        HandFoot.transform.localPosition = localPosition;
-        HandFoot.transform.localRotation = localRotation;
-        ArmLeg.transform.localPosition = localPosition / 2;
-        ArmLeg.transform.localRotation = localRotation;
-        ArmLeg.transform.localScale = new Vector3(1, localPosition.magnitude / 2 * ArmLegScaleFactor, 1);
+        Hand.transform.localRotation = localRotation;
+        Hand.transform.localPosition = localPosition;
+        Limb.transform.localPosition = localPosition / 2;
+        Limb.transform.localRotation = localRotation;
+        Limb.transform.localScale = new Vector3(1, localPosition.magnitude / 2 * ArmScaleFactor, 1);
     }
 
     public void TrackMouse(InputAction.CallbackContext context) {

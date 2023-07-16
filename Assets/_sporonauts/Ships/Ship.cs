@@ -50,7 +50,7 @@ public class Ship : MonoBehaviour
         input.Inventory.SwitchToFlying.performed += OnSwitchToFlying;
         input.Inventory.Drag.performed += dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled += dragAndDrop.OnDrop;
-        input.Inventory.PositionHand.performed += dragAndDrop.armleg.TrackMouse;
+        input.Inventory.PositionHand.performed += dragAndDrop.arm.TrackMouse;
         OnSwitchToFlying(new InputAction.CallbackContext());
     }
 
@@ -63,7 +63,7 @@ public class Ship : MonoBehaviour
         input.Inventory.SwitchToFlying.performed -= OnSwitchToFlying;
         input.Inventory.Drag.performed -= dragAndDrop.OnDragBegin;
         input.Inventory.Drag.canceled -= dragAndDrop.OnDrop;
-        input.Inventory.PositionHand.performed -= dragAndDrop.armleg.TrackMouse;
+        input.Inventory.PositionHand.performed -= dragAndDrop.arm.TrackMouse;
     }
 
     private void OnActivateEngine(InputAction.CallbackContext context) {
@@ -80,7 +80,7 @@ public class Ship : MonoBehaviour
         input.Inventory.Disable();
         cameraFocuser.Focus(gameObject, flyingZoomScale);
         engineMount.Activate();
-        dragAndDrop.armleg.Deactivate();
+        dragAndDrop.arm.Deactivate();
     }
 
     private void OnSwitchToInventory(InputAction.CallbackContext context) {
@@ -89,7 +89,7 @@ public class Ship : MonoBehaviour
         input.Inventory.Enable();
         cameraFocuser.Focus(gameObject, inventoryZoomScale);
         engineMount.Deactivate();
-        dragAndDrop.armleg.Activate();
+        dragAndDrop.arm.Activate();
     }
 
     private void UpdateMass() {

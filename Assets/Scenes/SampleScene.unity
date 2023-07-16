@@ -685,7 +685,7 @@ MonoBehaviour:
   dragForce: 10
   maxSpeed: 10
   maxRange: 3
-  armleg: {fileID: 1198142234}
+  arm: {fileID: 1198142234}
 --- !u!114 &608575471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1528,9 +1528,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8444355391c54bc8bcfa560d1575c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HandFoot: {fileID: 859207366}
-  ArmLeg: {fileID: 270162174}
-  ArmLegScaleFactor: 14
+  Hand: {fileID: 859207366}
+  Limb: {fileID: 270162174}
+  ArmScaleFactor: 10
 --- !u!1 &1349657049
 GameObject:
   m_ObjectHideFlags: 0
