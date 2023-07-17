@@ -1253,7 +1253,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.07, y: 1.01}
+    oldSize: {x: 1.2, y: 1.2}
     newSize: {x: 1, y: 0.8828125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1261,27 +1261,26 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.525, y: -0.205}
-      - {x: 0.525, y: -0.074999996}
-      - {x: 0.515, y: 0.065}
-      - {x: 0.505, y: 0.114999995}
-      - {x: 0.195, y: 0.45499998}
-      - {x: 0.145, y: 0.48499998}
-      - {x: -0.035, y: 0.505}
-      - {x: -0.095, y: 0.505}
-      - {x: -0.175, y: 0.465}
-      - {x: -0.325, y: 0.325}
-      - {x: -0.505, y: 0.044999998}
-      - {x: -0.525, y: -0.175}
-      - {x: -0.525, y: -0.225}
-      - {x: -0.45499998, y: -0.325}
-      - {x: -0.33499998, y: -0.415}
-      - {x: -0.175, y: -0.48499998}
-      - {x: -0.085, y: -0.505}
-      - {x: 0.024999999, y: -0.505}
-      - {x: 0.24499999, y: -0.435}
-      - {x: 0.36499998, y: -0.39499998}
-      - {x: 0.465, y: -0.295}
+    - - {x: 0.59999996, y: 0.14}
+      - {x: 0.56, y: 0.26999998}
+      - {x: 0.45, y: 0.44}
+      - {x: 0.41, y: 0.48999998}
+      - {x: 0.13, y: 0.59999996}
+      - {x: -0.06, y: 0.59999996}
+      - {x: -0.17, y: 0.58}
+      - {x: -0.35, y: 0.51}
+      - {x: -0.52, y: 0.29999998}
+      - {x: -0.58, y: 0.16}
+      - {x: -0.58, y: -0.089999996}
+      - {x: -0.53999996, y: -0.26999998}
+      - {x: -0.42999998, y: -0.42999998}
+      - {x: -0.37, y: -0.48}
+      - {x: -0.22, y: -0.56}
+      - {x: -0.089999996, y: -0.58}
+      - {x: 0.14999999, y: -0.58}
+      - {x: 0.34, y: -0.48999998}
+      - {x: 0.53, y: -0.32999998}
+      - {x: 0.59999996, y: -0.14999999}
   m_UseDelaunayMesh: 0
 --- !u!4 &851016701 stripped
 Transform:
@@ -1392,7 +1391,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.5
 --- !u!114 &923473423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1670,7 +1669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198142231}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.55, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
