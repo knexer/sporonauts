@@ -41,6 +41,33 @@ TagManager:
   - name: Background
     uniqueID: 600529267
     locked: 0
+  - name: Planet Back
+    uniqueID: 3293047649
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Planet
+    uniqueID: 241751805
+    locked: 0
+  - name: Planet Front
+    uniqueID: 3753771235
+    locked: 0
+  - name: Ship Back
+    uniqueID: 2108045923
+    locked: 0
+  - name: Ship Interior
+    uniqueID: 1630743369
+    locked: 0
+  - name: Ship Front
+    uniqueID: 1392575899
+    locked: 0
+  - name: Ship Exterior
+    uniqueID: 575987085
+    locked: 0
+  - name: Resources
+    uniqueID: 2536840077
+    locked: 0
+  - name: Ship Hand
+    uniqueID: 3181274585
     locked: 0

@@ -14,6 +14,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] public ResourceType[] acceptedResourceTypes;
     // The exact count of each resource type that can be added to this inventory. Empty array means any number of each resource can be added.
     [SerializeField] public ResourceType[] acceptedResourceTypesExactCount;
+    [SerializeField] private string ContentsSortingLayer;
 
     private List<Resource> items = new List<Resource>();
 
@@ -88,6 +89,7 @@ public class Inventory : MonoBehaviour
 
         resource.transform.SetParent(transform, worldPositionStays);
         resource.OnAddedToInventory(this);
+        resource.GetComponentInChildren<SpriteRenderer>().sortingLayerName = ContentsSortingLayer;
 
         OnContentsChanged?.Invoke();
         return true;
@@ -98,6 +100,7 @@ public class Inventory : MonoBehaviour
 
         resource.transform.SetParent(null);
         resource.OnRemovedFromInventory(this);
+        resource.GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Resources";
 
         OnContentsChanged?.Invoke();
         return resource;
