@@ -7,7 +7,7 @@ public class CircleGeneratorEditor
     public static void GenerateCircle()
     {
         int numSegments = 64;
-        float radius = 30.0f;
+        float radius = 1.0f;
         Mesh mesh = new Mesh();
 
         Vector3[] vertices = new Vector3[(numSegments + 1) * 2];
