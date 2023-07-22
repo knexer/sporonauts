@@ -61,7 +61,6 @@ public class Planet : MonoBehaviour
 
         for (int i = 0; i < numObjects; i++) {
             float angle = offsets[i] + minRadiansBetweenObjects * i;
-            Debug.Log(angle * Mathf.Rad2Deg);
             Vector2 position = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * radius;
             GameObject spawnedObject = Instantiate(surfaceObjectPrefabs[i], transform);
             spawnedObject.transform.localPosition = position;

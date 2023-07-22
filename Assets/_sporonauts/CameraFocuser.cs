@@ -4,57 +4,47 @@ using UnityEngine;
 
 public class CameraFocuser : MonoBehaviour
 {
-    [SerializeField] private Transform cameraDefaultFollowTarget;
+    [SerializeField] private CameraTarget cameraDefaultFollowTarget;
     [SerializeField] private Camera controlledCamera;
-    private float defaultZoom;
-    private Transform target;
-    private float zoom;
+    [SerializeField] private float smoothTime = .1f;
+    private CameraTarget target;
     private Vector3 velocity = Vector3.zero;
+    private float angleVelocity = 0;
+    private float zoomVelocity = 0;
     private Coroutine zoomCoroutine;
 
     private void Awake() {
         target = cameraDefaultFollowTarget;
-        defaultZoom = controlledCamera.orthographicSize;
+        controlledCamera.orthographicSize = target.CameraOrthographicSize;
+        transform.position = target.transform.position;
     }
 
-    private void Update() {
-        Vector3 targetPosition = target.position;
-        targetPosition.z = transform.position.z;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, .1f);
-        // Rotate based on the local direction of gravity
-        Vector2 gravityDirection = Planet.CalculateNetGravity(transform.position);
-        float angle = Mathf.Atan2(gravityDirection.y, gravityDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle + 90);
-    }
-
-    public void Focus(GameObject target, float zoom) {
-        this.target = target.transform;
-        this.zoom = zoom;
+    public void Focus(CameraTarget target) {
+        this.target = target;
         if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);
-        zoomCoroutine = StartCoroutine(Zoom());
+        // zoomCoroutine = StartCoroutine(Zoom());
     }
 
     public void Unfocus() {
         this.target = cameraDefaultFollowTarget;
-        this.zoom = defaultZoom;
         if (zoomCoroutine != null) StopCoroutine(zoomCoroutine);
-        zoomCoroutine = StartCoroutine(Zoom());
+        // zoomCoroutine = StartCoroutine(Zoom());
     }
 
-    private IEnumerator Zoom() {
-        float startZoom = controlledCamera.orthographicSize;
-        Vector2 startPosition = transform.position;
-        while (true) {
-            // Zoom in based on how close we are to the target
-            float distanceCoveredRatio = 1 - Vector2.Distance(transform.position, target.position) / Vector2.Distance(startPosition, target.position);
-            controlledCamera.orthographicSize = Mathf.Lerp(startZoom, zoom, distanceCoveredRatio);
-            if (distanceCoveredRatio >= .99f) {
-                break;
-            }
-            yield return null;
+    private void Update() {
+        Vector3 targetPosition = target.transform.position;
+        targetPosition.z = transform.position.z;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+        
+        float targetAngle = target.transform.rotation.eulerAngles.z;
+        if (target.OrientToLocalGravity) {
+            // Rotate to local 'up' based on target's gravity.
+            Vector2 gravityDirection = Planet.CalculateNetGravity(target.transform.position);
+            targetAngle = Mathf.Atan2(gravityDirection.y, gravityDirection.x) * Mathf.Rad2Deg + 90;
         }
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.SmoothDampAngle(transform.rotation.eulerAngles.z, targetAngle, ref angleVelocity, smoothTime));
 
-        controlledCamera.orthographicSize = zoom;
-        zoomCoroutine = null;
+        float targetZoom = target.CameraOrthographicSize;
+        controlledCamera.orthographicSize = Mathf.SmoothDamp(controlledCamera.orthographicSize, targetZoom, ref zoomVelocity, smoothTime);
     }
 }

@@ -12,12 +12,11 @@ public enum ShipState {
 public class Ship : MonoBehaviour
 {
     [SerializeField] private CameraFocuser cameraFocuser;
+    [SerializeField] private CameraTarget cameraTarget;
     [SerializeField] private DragAndDrop dragAndDrop;
     [SerializeField] private EngineMount engineMount;
     [SerializeField] private ShipLocomotion locomotion;
     [SerializeField] private float dryMass;
-    [SerializeField] private float inventoryZoomScale;
-    [SerializeField] private float flyingZoomScale;
 
     private ShipState state;
     private ShipInput input;
@@ -87,7 +86,7 @@ public class Ship : MonoBehaviour
         state = ShipState.Control;
         input.Flying.Enable();
         input.Inventory.Disable();
-        cameraFocuser.Focus(gameObject, flyingZoomScale);
+        cameraFocuser.Unfocus();
         engineMount.Activate();
         dragAndDrop.arm.Deactivate();
     }
@@ -96,7 +95,7 @@ public class Ship : MonoBehaviour
         state = ShipState.Inventory;
         input.Flying.Disable();
         input.Inventory.Enable();
-        cameraFocuser.Focus(gameObject, inventoryZoomScale);
+        cameraFocuser.Focus(cameraTarget);
         engineMount.Deactivate();
         dragAndDrop.arm.Activate();
     }

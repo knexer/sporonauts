@@ -709,7 +709,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -732,8 +732,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.63, z: -10}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.4, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -752,8 +752,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69602ee3bccd0455bb3543342d0eb6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraDefaultFollowTarget: {fileID: 622631550}
+  cameraDefaultFollowTarget: {fileID: 622631551}
   controlledCamera: {fileID: 519420031}
+  smoothTime: 0.1
 --- !u!1 &608575465
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +770,7 @@ GameObject:
   - component: {fileID: 608575470}
   - component: {fileID: 608575471}
   - component: {fileID: 608575472}
+  - component: {fileID: 608575473}
   m_Layer: 3
   m_Name: Ship
   m_TagString: Untagged
@@ -848,12 +850,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraFocuser: {fileID: 519420033}
+  cameraTarget: {fileID: 608575473}
   dragAndDrop: {fileID: 608575470}
   engineMount: {fileID: 758256685}
   locomotion: {fileID: 608575472}
   dryMass: 8
-  inventoryZoomScale: 2
-  flyingZoomScale: 5
 --- !u!114 &608575470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -900,6 +901,20 @@ MonoBehaviour:
   moveForce: 10
   maxSpeed: 1
   shipBody: {fileID: 608575467}
+--- !u!114 &608575473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608575465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e47930561f6458e9349ce2f590eec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOrthographicSize: 2
+  OrientToLocalGravity: 1
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +1006,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 622631550}
+  - component: {fileID: 622631551}
   m_Layer: 0
   m_Name: CameraHost
   m_TagString: Untagged
@@ -1006,13 +1022,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622631549}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.63, z: 0}
+  m_LocalPosition: {x: -16.4, y: 10, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622631551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622631549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e47930561f6458e9349ce2f590eec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraOrthographicSize: 20
+  OrientToLocalGravity: 0
 --- !u!1001 &741299758
 PrefabInstance:
   m_ObjectHideFlags: 0
